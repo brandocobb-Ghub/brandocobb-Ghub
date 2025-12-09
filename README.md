@@ -2,12 +2,10 @@
 
 <h2>👨‍💻 Software Development Projects:</h2>
 
-- <b>Installing Windows on VirtualBox/Installing Kali Linux</b>
-  - [Installing Windows on VirtualBox/Installing Kali Linux](https://github.com/joshmadakor1/Algorithms-Practice)
 - <b>Using Wireshark to capture network traffic </b>
   - [Using Wireshark to capture network traffic](https://github.com/joshmadakor1/4chan-Image-Analysis-Middleware-C964) <b><i></b></i>
 - <b>Using an IP Scanner</b>
-  - <b>[Using an IP Scanner](https://github.com/joshmadakor1/Sentinel-Lab)
+  - [Using an IP Scanner](https://github.com/brandocobb-Ghub/Using-an-IP-Scanner-1) <b><i></b></i>
 - <b>Using the Nessus Vulnerability scanner</b>
   - [Using the Nessus Vulnerability scanner](https://github.com/joshmadakor1/Jwipe.PowerShell)
   - <b>Scanner a website for vulnerabilities</b>
