@@ -1,0 +1,33 @@
+<#
+.SYNOPSIS
+    This PowerShell script ensures that all local volumes use the NTFS file system
+    to comply with DISA STIG WN11-00-000050.
+
+.NOTES
+    Author          : Brandon Cobb
+    GitHub          : https://github.com/brandocobb-Ghub/
+    Date Created    : 06-26-2026
+    Last Modified   : 06-26-2026
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-00-000050
+    Documentation   : https://stigaview.com/products/win11/v2r7/WN11-00-000050/
+
+.USAGE
+    Run this script as Administrator.
+
+    Example:
+
+    PS C:\> .\WN11-00-000050.ps1
+
+.DESCRIPTION
+    DISA STIG WN11-00-000050 requires all local volumes
+    with drive letters to use the NTFS file system.
+
+    FAT/FAT32 volumes can be converted to NTFS without
+    formatting.
+
+    exFAT, ReFS, and other file systems require manual
+    backup and formatting.
+#>
