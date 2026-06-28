@@ -1,0 +1,124 @@
+<#
+.SYNOPSIS
+    This PowerShell script configures the Account Lockout Threshold
+    to three invalid logon attempts in accordance with
+    DISA STIG WN11-AC-000010.
+
+.NOTES
+    Author          : Brandon Cobb
+    GitHub          : https://github.com/brandocobb-Ghub/
+    Date Created    : 2026-06-23
+    Last Modified   : 2026-06-23
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-AC-000010
+    Documentation   : https://stigaview.com/products/win11/v2r7/WN11-AC-000010/
+
+.TESTED ON
+    Date(s) Tested  :
+    Tested By       :
+    Systems Tested  :
+    PowerShell Ver. :
+
+.USAGE
+    Run this script with administrative privileges.
+
+    Example syntax:
+
+    PS C:\> .\WN11-AC-000010.ps1
+
+.DESCRIPTION
+    DISA STIG WN11-AC-000010 requires the Account Lockout
+    Threshold to be configured to three or fewer invalid
+    logon attempts.
+
+    This script also configures the dependent Account
+    Lockout Duration and Reset Counter values to ensure
+    Windows accepts the configuration.
+
+    Required Values
+
+        Lockout Threshold...............3
+        Lockout Duration...............15
+        Reset Counter After............15
+#>
+
+# STIG Requirements
+$LockoutThreshold = 3
+$LockoutDuration  = 15
+$LockoutWindow    = 15
+
+try {
+
+    Write-Host "===================================================" -ForegroundColor Cyan
+    Write-Host "STIG Remediation: WN11-AC-000010" -ForegroundColor Cyan
+    Write-Host "Account Lockout Threshold" -ForegroundColor Cyan
+    Write-Host "===================================================" -ForegroundColor Cyan
+    Write-Host ""
+
+    Write-Host "[INFO] Configuring Account Lockout Threshold..." -ForegroundColor Yellow
+
+    cmd /c "net accounts /lockoutthreshold:$LockoutThreshold"
+
+    if ($LASTEXITCODE -ne 0) {
+        throw "Failed to configure Account Lockout Threshold."
+    }
+
+    Write-Host "[INFO] Configuring Account Lockout Duration..." -ForegroundColor Yellow
+
+    cmd /c "net accounts /lockoutduration:$LockoutDuration"
+
+    if ($LASTEXITCODE -ne 0) {
+        throw "Failed to configure Account Lockout Duration."
+    }
+
+    Write-Host "[INFO] Configuring Reset Counter After..." -ForegroundColor Yellow
+
+    cmd /c "net accounts /lockoutwindow:$LockoutWindow"
+
+    if ($LASTEXITCODE -ne 0) {
+        throw "Failed to configure Reset Counter After."
+    }
+
+    Write-Host ""
+    Write-Host "[SUCCESS] Account Lockout Policy configured." -ForegroundColor Green
+
+    Write-Host ""
+    Write-Host "Verification Results" -ForegroundColor Cyan
+    Write-Host "---------------------------------------------------"
+
+    $Accounts = net accounts
+
+    $Accounts | Select-String "Lockout threshold"
+    $Accounts | Select-String "Lockout duration"
+    $Accounts | Select-String "Lockout observation window"
+
+    $Threshold = (($Accounts | Select-String "Lockout threshold").ToString() -replace '[^\d]','')
+    $Duration  = (($Accounts | Select-String "Lockout duration").ToString() -replace '[^\d]','')
+    $Window    = (($Accounts | Select-String "Lockout observation window").ToString() -replace '[^\d]','')
+
+    if (($Threshold -le 3) -and
+        ($Threshold -gt 0) -and
+        ($Duration -ge 15) -and
+        ($Window -ge 15))
+    {
+        Write-Host ""
+        Write-Host "STATUS: COMPLIANT" -ForegroundColor Green
+        exit 0
+    }
+    else
+    {
+        Write-Host ""
+        Write-Host "STATUS: NON-COMPLIANT" -ForegroundColor Red
+        exit 1
+    }
+
+}
+catch {
+
+    Write-Error "An error occurred while remediating STIG WN11-AC-000010."
+    Write-Error $_.Exception.Message
+    exit 1
+
+}
