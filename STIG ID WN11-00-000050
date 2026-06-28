@@ -30,7 +30,9 @@
 
     exFAT, ReFS, and other file systems require manual
     backup and formatting.
-#> Write-Host "===================================================" -ForegroundColor Cyan
+#> #>
+
+Write-Host "===================================================" -ForegroundColor Cyan
 Write-Host "STIG Remediation: WN11-00-000050"
 Write-Host "Verify Local Volumes are NTFS"
 Write-Host "===================================================" -ForegroundColor Cyan
@@ -85,3 +87,4 @@ else
     Write-Host ""
     Write-Host "STATUS: NON-COMPLIANT" -ForegroundColor Red
     exit 1
+}
