@@ -30,4 +30,58 @@
 
     exFAT, ReFS, and other file systems require manual
     backup and formatting.
-#>
+#> Write-Host "===================================================" -ForegroundColor Cyan
+Write-Host "STIG Remediation: WN11-00-000050"
+Write-Host "Verify Local Volumes are NTFS"
+Write-Host "===================================================" -ForegroundColor Cyan
+Write-Host ""
+
+$Volumes = Get-Volume |
+Where-Object {
+    $_.DriveLetter -ne $null
+}
+
+$NonCompliant = @()
+
+foreach ($Volume in $Volumes)
+{
+    Write-Host "Drive $($Volume.DriveLetter):  FileSystem = $($Volume.FileSystem)"
+
+    if ($Volume.FileSystem -ne "NTFS")
+    {
+        $NonCompliant += $Volume
+
+        if ($Volume.FileSystem -eq "FAT32")
+        {
+            Write-Host ""
+            Write-Host "[INFO] Converting drive $($Volume.DriveLetter): to NTFS..." -ForegroundColor Yellow
+
+            convert "$($Volume.DriveLetter):" /FS:NTFS /NoSecurity
+        }
+        else
+        {
+            Write-Warning "$($Volume.DriveLetter): uses $($Volume.FileSystem). Manual backup and format required."
+        }
+    }
+}
+
+Write-Host ""
+Write-Host "Verification Results"
+Write-Host "---------------------------------------------------"
+
+Get-Volume |
+Where-Object {$_.DriveLetter} |
+Select DriveLetter, FileSystem |
+Format-Table -AutoSize
+
+if ((Get-Volume | Where-Object {$_.DriveLetter -and $_.FileSystem -ne "NTFS"}).Count -eq 0)
+{
+    Write-Host ""
+    Write-Host "STATUS: COMPLIANT" -ForegroundColor Green
+    exit 0
+}
+else
+{
+    Write-Host ""
+    Write-Host "STATUS: NON-COMPLIANT" -ForegroundColor Red
+    exit 1
