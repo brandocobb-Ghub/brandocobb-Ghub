@@ -1,0 +1,90 @@
+<#
+.SYNOPSIS
+    This PowerShell script configures the account lockout counter reset
+    period to 15 minutes in accordance with DISA STIG WN11-AC-000015.
+
+.NOTES
+    Author          : Brandon Cobb
+    GitHub          : https://github.com/brandocobb-Ghub/
+    Date Created    : 2026-06-23
+    Last Modified   : 2026-06-23
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-AC-000015
+    Documentation   : https://stigaview.com/products/win11/v2r7/WN11-AC-000015/
+
+.TESTED ON
+    Date(s) Tested  :
+    Tested By       :
+    Systems Tested  :
+    PowerShell Ver. :
+
+.USAGE
+    Run this script with administrative privileges.
+
+    Example syntax:
+    PS C:\> .\WN11-AC-000015.ps1
+
+.DESCRIPTION
+    DISA STIG WN11-AC-000015 requires the account lockout
+    counter to reset after 15 minutes.
+
+    Required Value:
+        Reset account lockout counter after = 15 minutes
+#>
+
+# Define STIG Requirement
+$RequiredResetTime = 15
+
+try {
+
+    Write-Host "===================================================" -ForegroundColor Cyan
+    Write-Host "STIG Remediation: WN11-AC-000015" -ForegroundColor Cyan
+    Write-Host "Reset Account Lockout Counter After" -ForegroundColor Cyan
+    Write-Host "===================================================" -ForegroundColor Cyan
+    Write-Host ""
+
+    Write-Host "[INFO] Configuring account lockout counter reset time..." -ForegroundColor Yellow
+
+    net accounts /lockoutwindow:$RequiredResetTime | Out-Null
+
+    Write-Host "[SUCCESS] Account lockout counter reset time configured." -ForegroundColor Green
+
+    # Retrieve current configuration
+    $NetAccounts = net accounts
+
+    $ResetLine = $NetAccounts |
+        Where-Object { $_ -match "Lockout observation window" }
+
+    $CurrentValue = ($ResetLine -replace '[^\d]', '')
+
+    Write-Host ""
+    Write-Host "Verification Results" -ForegroundColor Cyan
+    Write-Host "---------------------------------------------------"
+    Write-Host "Required Value : $RequiredResetTime minutes"
+    Write-Host "Current Value  : $CurrentValue minutes"
+
+    if ([int]$CurrentValue -ge $RequiredResetTime) {
+
+        Write-Host ""
+        Write-Host "STATUS: COMPLIANT" -ForegroundColor Green
+        exit 0
+
+    }
+    else {
+
+        Write-Host ""
+        Write-Host "STATUS: NON-COMPLIANT" -ForegroundColor Red
+        exit 1
+
+    }
+
+}
+catch {
+
+    Write-Error "An error occurred while remediating STIG WN11-AC-000015."
+    Write-Error $_.Exception.Message
+    exit 1
+
+}
