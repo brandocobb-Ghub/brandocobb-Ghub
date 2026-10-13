@@ -24,7 +24,5 @@
 
 
 
-  
-<h2> Microsoft Office Projects *Work in progress*</h2>
 
 
