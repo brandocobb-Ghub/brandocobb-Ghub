@@ -8,19 +8,7 @@
 - <b>Vulnerability Management Project </b>
   - [Vulnerability Management Project](https://github.com/brandocobb-Ghub/brandocobb-Ghub/blob/main/Vulnerability%20Management%20Project%201.md) <b><i></b></i>
 
-<h2>👨‍💻 Vulnerablity Remidiation:</h2>
 
-- <b> DISA STIGs</b>
-  - <b><i> [STIG ID WN11-00-000050](https://github.com/brandocobb-Ghub/brandocobb-Ghub/blob/main/STIG%20ID%20WN11-00-000050.ps1) </b></i>
-  - <b><i> [STIG ID WN11-AC-000010](https://github.com/brandocobb-Ghub/brandocobb-Ghub/blob/main/STIG%20ID%20WN11-AC-000010.ps1) </b></i>
-  - <b><i> [STIG ID: WN11-00-000175](https://github.com/brandocobb-Ghub/brandocobb-Ghub/blob/main/STIG%20ID%3A%20WN11-00-000175.ps1) </b></i>
-  - <b><i> [STIG ID: WN11-AC-000020](https://github.com/brandocobb-Ghub/brandocobb-Ghub/blob/main/STIG%20ID%3A%20WN11-AC-000020.ps1) </b></i>
-  - <b><i> [STIG ID: WN11-AC-000040](https://github.com/brandocobb-Ghub/brandocobb-Ghub/blob/main/STIG%20ID%3A%20WN11-AC-000040.ps1) </b></i>
-  - <b><i> [STIG-ID-WN11-AU-000510](https://github.com/brandocobb-Ghub/brandocobb-Ghub/blob/main/STIG-ID-WN11-AU-000510.ps1) </b></i>
-  - <b><i> [STIG-ID: WN11-AC-000005](https://github.com/brandocobb-Ghub/brandocobb-Ghub/blob/main/STIG-ID%3A%20WN11-AC-000010.ps1) </b></i>
-  - <b><i> [STIG-ID: WN11-AC-000010](https://github.com/brandocobb-Ghub/brandocobb-Ghub/blob/main/STIG%20ID%20WN11-00-000050.ps1) </b></i>
-  - <b><i> [STIG-ID: WN11-AC-000015](https://github.com/brandocobb-Ghub/brandocobb-Ghub/blob/main/STIG-ID%3A%20WN11-AC-000015.ps1) </b></i>
-  - <b><i> [STIG-ID: WN11-AU-000500](https://github.com/brandocobb-Ghub/brandocobb-Ghub/blob/main/STIG-ID%3A%20WN11-AU-000500.ps1) </b></i>
 
 
 
